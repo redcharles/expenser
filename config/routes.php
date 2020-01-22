@@ -69,7 +69,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
 
     $routes->connect('/dashboard', ['controller' => 'Dashboard', 'action' => 'index']);
-    $routes->connect('/dashboard/expenses', ['controller' => 'Dashboard', 'action' => 'expenses']);
+    $routes->connect('/dashboard/expenses/add', ['controller' => 'Dashboard', 'action' => 'expenses']);
+    $routes->connect('/dashboard/expenses/', ['controller' => 'Dashboard', 'action' => 'manageExpenses']);
 
     
     /**
