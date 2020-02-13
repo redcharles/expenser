@@ -24,6 +24,8 @@ class UsersController extends AppController
         parent::initialize();
         // Add the 'add' action to the allowed actions list.
         $this->Auth->allow(['logout', 'add']);
+        $this->viewBuilder()->setLayout('dashboard');
+
     }
 
     public function index()
@@ -58,6 +60,8 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
+            print_r($this->request->getData());
+            
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));

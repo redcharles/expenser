@@ -71,8 +71,14 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/dashboard', ['controller' => 'Dashboard', 'action' => 'index']);
     $routes->connect('/dashboard/expenses/add', ['controller' => 'Dashboard', 'action' => 'expenses']);
     $routes->connect('/dashboard/expenses/', ['controller' => 'Dashboard', 'action' => 'manageExpenses']);
-
+    $routes->connect('/dashboard/categories/', ['controller' => 'Dashboard', 'action' => 'manageCategories']);
+    $routes->connect('/dashboard/jobs/', ['controller' => 'Dashboard', 'action' => 'manageJobs']);
     
+    $routes->connect('/integration/quickbooks', ['controller' => 'Integration', 'action' => 'quickbooks']);
+    $routes->connect('/integration/*', ['controller' => 'Integration', 'action' => 'index']);
+    
+    
+
     /**
      * Connect catchall routes for all controllers.
      *

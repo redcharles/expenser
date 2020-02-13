@@ -24,7 +24,7 @@ class ExpensesTableTest extends TestCase
      */
     public $fixtures = [
         'app.Expenses',
-        'app.Users'
+        'app.Users',
     ];
 
     /**

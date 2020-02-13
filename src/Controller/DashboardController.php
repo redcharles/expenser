@@ -47,55 +47,25 @@ class DashboardController extends AppController
     public function index(){
 
     }
-
-    public function expenses(){
+    public function manageCategories(){
+        $expensesTable = $this->loadModel('Categories');
         
-        $expensesTable = $this->loadModel('Expenses');
-        $previousExpenses = $expensesTable->showExpenses($this->Auth->user('id'));
-        $this->set('prevExpenses', $previousExpenses);
-
+        $this->set("categories", $this->Categories->find('all'));
         if($this->request->is('post')){
-            $returnArr = [];  
-            $returnArr['success'] = false;
-          
-            $returnArr['data'] = $this->request->getData();
-            $expensesTable = $this->loadModel('Expenses');
-                                              
-            $expenses = $expensesTable->newEntity();
-            $expenses->user_id = $this->Auth->user('id');
-            $expenses->item_name = $this->request->getData('item_name');
-            $expenses->item_number = $this->request->getData('item_number');
-            $expenses->taxable = $this->request->getData('taxable');
-            $expenses->item_cost = $this->request->getData('item_cost');
-            $expenses->item_date = $this->request->getData('item_date');
-            $expenses->quantity = $this->request->getData('quantity');
-            
-            if ($expensesTable->save($expenses)){
-                $returnArr['success'] = true;
+            $method = $this->request->getData('method');
+            $name = $this->request->getData('category_name');
+            switch($method) {
+                case 'addCat':
+                    $this->Categories->addCat($name) ? $this->Flash->success("The category \"$name\" was created.") : $this->Flash->success("The category \"$name\" was not created.");
+                    break;
+                case 'deleteCat':
+                    $this->Categories->deleteCat($this->request->getData('id')) ? $this->Flash->success("This category has been deleted") : $this->Flash->success("This category has not been deleted.");
+                    break;
             }
-
-
-            $results = json_encode($returnArr);
-            $this->response->type('json');
-            $this->response->body($results);
-            return $this->response;   
+                        
         }
     }
-
-    public function manageExpenses(){
-        if($this->request->is('post')){
-            $expensesTable = $this->loadModel('Expenses');
-            $this->Expenses->deleteRecord($this->request->getData('id'));
-        }
         
-        $this->loadModel('Expenses');
-        // $previousExpenses = $this->Expenses->showExpenses($this->Auth->user('id'));
-
-        $expenses = $this->paginate($this->Expenses);
-
-        $this->set(compact('expenses'));
-    }
-
     public function reports(){
         
     }

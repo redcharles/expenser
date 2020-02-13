@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
+ * @property &\Cake\ORM\Association\HasMany $Expenses
+ *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -37,6 +39,10 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->hasMany('Expenses', [
+            'foreignKey' => 'user_id',
+        ]);
     }
 
     /**
@@ -50,6 +56,18 @@ class UsersTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
+
+        $validator
+            ->scalar('first_name')
+            ->maxLength('first_name', 50)
+            ->requirePresence('first_name', 'create')
+            ->notEmptyString('first_name');
+
+        $validator
+            ->scalar('last_name')
+            ->maxLength('last_name', 50)
+            ->requirePresence('last_name', 'create')
+            ->notEmptyString('last_name');
 
         $validator
             ->email('email')
@@ -67,6 +85,16 @@ class UsersTable extends Table
             ->maxLength('role', 100)
             ->requirePresence('role', 'create')
             ->notEmptyString('role');
+
+        $validator
+            ->scalar('access_token')
+            ->maxLength('access_token', 1000)
+            ->allowEmptyString('access_token');
+
+        $validator
+            ->scalar('refresh_token')
+            ->maxLength('refresh_token', 1000)
+            ->allowEmptyString('refresh_token');
 
         return $validator;
     }

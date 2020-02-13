@@ -38,7 +38,7 @@ class ExpensesTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER'
+            'joinType' => 'INNER',
         ]);
     }
 
@@ -59,12 +59,6 @@ class ExpensesTable extends Table
             ->maxLength('item_name', 255)
             ->requirePresence('item_name', 'create')
             ->notEmptyString('item_name');
-
-        $validator
-            ->scalar('item_number')
-            ->maxLength('item_number', 255)
-            ->requirePresence('item_number', 'create')
-            ->notEmptyString('item_number');
 
         $validator
             ->scalar('taxable')
@@ -95,6 +89,22 @@ class ExpensesTable extends Table
             ->dateTime('date_added')
             ->allowEmptyDateTime('date_added');
 
+        $validator
+            ->scalar('purchase_state')
+            ->maxLength('purchase_state', 10)
+            ->allowEmptyString('purchase_state');
+
+        $validator
+            ->scalar('cat_name')
+            ->maxLength('cat_name', 255)
+            ->allowEmptyString('cat_name');
+
+        $validator
+            ->scalar('job_number')
+            ->maxLength('job_number', 255)
+            ->requirePresence('job_number', 'create')
+            ->notEmptyString('job_number');
+
         return $validator;
     }
 
@@ -111,7 +121,6 @@ class ExpensesTable extends Table
 
         return $rules;
     }
-    
     public function showExpenses($id){
         $previousExpenses = $this->query()
             ->find('all')
@@ -121,8 +130,10 @@ class ExpensesTable extends Table
     }
     
     public function deleteRecord($id){
-        $query = $this->get($id);
-        $result = $this->delete($query);
-        return $result;
+        $entity = $this->get($id);
+        if($this->delete($entity)){
+            return true;
+        }
+        return false;
     }
 }

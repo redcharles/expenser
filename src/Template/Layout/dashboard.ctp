@@ -40,14 +40,39 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/dashboard/expenses">
-                                <span data-feather="file"></span>
+                            <a class="nav-link" href="/expenses">
+                                <span data-feather="dollar-sign"></span>
                                 Manage Expenses
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="/employee/">
+                                <span data-feather="clipboard"></span>
+                                Manage Employees
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/timesheets/">
+                                <span data-feather="users"></span>
+                                Manage Timesheets
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/jobs">
+                                <span data-feather="edit"></span>
+                                Manage Jobs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/dashboard/categories">
+                                <span data-feather="settings"></span>
+                                Manage Categories
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/users/">
-                                <span data-feather="shopping-cart"></span>
+                                <span data-feather="user-check"></span>
                                 Manage Users 
                             </a>
                         </li>
